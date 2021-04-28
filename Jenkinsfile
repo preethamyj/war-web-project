@@ -22,8 +22,7 @@ pipeline {
         }
         stage ('push docker image') {
             steps {
-                sh 'cat ~/my_password.txt | docker login --username docker635067 --password-stdin'
-                sh 'sudo chmod 777 /var/run/docker.sock' 
+                sh 'cat ~/my_password.txt | docker login --username docker635067 --password-stdin' 
                 sh 'docker push docker635067/test:preethu'
             }
         }
