@@ -29,13 +29,13 @@ pipeline {
         stage ('deploy to K8S') {
             steps {
 	           sshagent(['ubuntu-kube']) {
-                      sh "scp -o StrictHostKeyChecking=no pod.yml service.yml ubuntu@3.7.69.141:/home/ubuntu"
+                      sh "scp -o StrictHostKeyChecking=no pod.yml service.yml ubuntu@3.7.69.141:/home/ubuntu/pipeline"
 			   script {
 			    try {
-			       sh "ssh ubuntu@3.7.69.141 sudo kubectl apply -f ."
+			       sh "ssh ubuntu@3.7.69.141 sudo kubectl apply -f ./pipeline"
 			        }
 			    catch(error) {
-				sh "ssh ubuntu@3.7.69.141 sudo kubectl create -f ."    
+				sh "ssh ubuntu@3.7.69.141 sudo kubectl create -f ./pipeline"    
                                    }
                               }
                     } 
