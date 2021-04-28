@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata: 
-    name: nodeapp
+    name: tomcat
     labels: 
-      app: nodeapp
+      app: tomcat
 spec:
   containers:
-      - name: nodeapp
+      - name: tomcat
         image: docker635067/test:preethu
         ports:
           - containerPort: 8080
