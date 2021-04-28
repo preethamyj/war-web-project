@@ -30,16 +30,17 @@ pipeline {
             steps {
 	           sshagent(['ubuntu-kube']) {
                       sh "scp -o StrictHostKeyChecking=no pod.yml service.yml ubuntu@3.7.69.141:/home/ubuntu"
-                       } 
-		    script {
+			   script {
 			    try {
 			       sh "ssh ubuntu@3.7.69.141 sudo kubectl apply -f ."
-			    }
+			        }
 			    catch(error) {
 				sh "ssh ubuntu@3.7.69.141 sudo kubectl create -f ."    
-           }
+                                   }
+                              }
+                    } 
+		    
+            } 
         }
-    } 
-}
     }
 }
