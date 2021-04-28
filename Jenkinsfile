@@ -33,10 +33,10 @@ pipeline {
                        } 
 		    script {
 			    try {
-			       sh "ssh ubuntu@172.31.15.32 kubectl apply -f ."
+			       sh "ssh ubuntu@172.31.15.32 sudo kubectl apply -f ."
 			    }
 			    catch(error) {
-				sh "ssh ubuntu@172.31.15.32 kubectl create -f ."    
+				sh "ssh ubuntu@172.31.15.32 sudo kubectl create -f ."    
            }
         }
     } 
