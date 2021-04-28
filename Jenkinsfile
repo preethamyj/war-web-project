@@ -5,8 +5,8 @@ pipeline {
        }
     stages {
         stage ('build') {
-            steps {
-               git credentialsId: 'gitclone', url: 'https://github.com/preethamyj/war-web-project.git'
+               steps {
+                  git credentialsId: 'gitclone', url: 'https://github.com/preethamyj/war-web-project.git'
             }
         }
         stage ('mvnbuild') {
@@ -26,18 +26,20 @@ pipeline {
                 sh 'docker push docker635067/test:preethu'
             }
         }
-        stage ('deploy to k8s') {
+        stage ('deploy to K8S') {
             steps {
 	           sshagent(['ubuntu-kube']) {
                       sh "scp -o StrictHostKeyChecking=no pod.yml service.yml ubuntu@172.31.15.32:/home/ubuntu"
                        } 
-		    script{
-			    try{
+		    script {
+			    try {
 			       sh "ssh ubuntu@172.31.15.32 kubectl apply -f ."
 			    }
-			    catch(error){
+			    catch(error) {
 				sh "ssh ubuntu@172.31.15.32 kubectl create -f ."    
            }
         }
     } 
+}
+    }
 }
