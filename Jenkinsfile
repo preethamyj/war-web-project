@@ -16,6 +16,7 @@ pipeline {
         }
          stage ('build dockerimage'){
             steps {
+                sh 'sudo chmod 777 /var/run/docker.sock' 
                 sh 'docker build -t docker635067/test:preethu .'
                 // sh 'docker tag war docker635067/test:hub'
             }
