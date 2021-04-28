@@ -22,14 +22,16 @@ pipeline {
         }
         stage ('push docker image') {
             steps {
-                sh 'cat ~/my_password.txt | docker login --username docker635067 --password-stdin' 
+                sh 'cat ~/my_password.txt | docker login --username docker635067 --password-stdin'
                 sh 'docker push docker635067/test:preethu'
             }
         }
-        stage ('deploy image') {
+        stage ('deploy to k8s') {
             steps {
-                sh "docker run -it -d -p 8085:8080 docker635067/test:preethu"
-            }
+	           sshagent(['ubuntu-kube']) {
+                      sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.15.32 sudo kubectl apply -f pod.yml && service.yml"                      
+                       } 
+           }
         }
     } 
 }
