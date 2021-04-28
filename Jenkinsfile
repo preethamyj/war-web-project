@@ -16,7 +16,6 @@ pipeline {
         }
          stage ('build dockerimage'){
             steps {
-                sh 'sudo chmod 777 /var/run/docker.sock' 
                 sh 'docker build -t docker635067/test:preethu .'
                 // sh 'docker tag war docker635067/test:hub'
             }
@@ -24,6 +23,7 @@ pipeline {
         stage ('push docker image') {
             steps {
                 sh 'cat ~/my_password.txt | docker login --username docker635067 --password-stdin'
+                sh 'sudo chmod 777 /var/run/docker.sock' 
                 sh 'docker push docker635067/test:preethu'
             }
         }
