@@ -28,7 +28,7 @@ pipeline {
         }
         stage ('deploy image') {
             steps {
-                sh "docker run -d -p 8085:8080 docker635067/test:preethu"
+                sh "docker run -it -d -p 8085:8080 docker635067/test:preethu"
             }
         }
     } 
